@@ -73,7 +73,30 @@ class _SigninScreenState extends State<SigninScreen> {
                         );
                       })
                       .onError((error, stacktrace) {
-                        print("${error.toString()};");
+                        if (error is FirebaseAuthException) {
+                          if (error.code == 'invalid-email') {
+                            _showDialog(
+                              context,
+                              'Adresse email invalide.',
+                              Icons.error,
+                              Colors.red,
+                            );
+                          } else {
+                            _showDialog(
+                              context,
+                              'Erreur : ${error.message}',
+                              Icons.error,
+                              Colors.red,
+                            );
+                          }
+                        } else {
+                          _showDialog(
+                            context,
+                            'Une erreur est survenue.',
+                            Icons.error,
+                            Colors.red,
+                          );
+                        }
                       });
                 }),
                 SignUpOption(),
@@ -82,6 +105,37 @@ class _SigninScreenState extends State<SigninScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  void _showDialog(
+    BuildContext context,
+    String message,
+    IconData icon,
+    Color iconColor,
+  ) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Row(
+            children: [
+              Icon(icon, color: iconColor),
+              SizedBox(width: 8),
+              Text('Message'),
+            ],
+          ),
+          content: Text(message),
+          actions: <Widget>[
+            ElevatedButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 
