@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:quiz_101/screens/UploadPage.dart';
 import 'package:quiz_101/screens/home.page.dart';
 import 'package:quiz_101/screens/leaderboard.page.dart';
 import 'package:quiz_101/screens/quiz.dart';
@@ -71,7 +72,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 Navigator.of(context).pop();
               },
             ),
+            /* ListTile(
+              leading: Icon(Icons.quiz, color: Colors.orange),
+              title: Text("Upload questions"),
+              onTap: () {
+                setState(() {
+                  _currentTitle = "Upload questions";
 
+                  _currentScreen = UploadPage();
+                });
+                Navigator.of(context).pop();
+              },
+            ), */
             ListTile(
               leading: Icon(Icons.exit_to_app, color: Colors.orange),
               title: Text("Sign out"),
